@@ -12,15 +12,18 @@ export default defineConfig({
     base: '/IT-Bookstore/',
     resolve: {
         alias: {
-            app: '/src/app',
-            entities: '/src/entities',
-            features: '/src/features',
-            pages: '/src/pages',
-            shared: '/src/shared',
-            widgets: '/src/widgets',
+            app: '/docs/app',
+            entities: '/docs/entities',
+            features: '/docs/features',
+            pages: '/docs/pages',
+            shared: '/docs/shared',
+            widgets: '/docs/widgets',
         },
     },
     server: {
         port: 3000,
+    },
+    build: {
+        outDir: 'docs',
     },
 })
