@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import { InView } from 'react-intersection-observer'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import clsx from 'clsx'
 import { CartPreview } from 'entities/cart'
-import { Search } from 'features/search'
 import Menu from 'shared/assets/icons/menu.svg?react'
 import { CONTENT_NAVIGATION_MENU } from 'shared/consts'
 
@@ -12,7 +11,7 @@ import './header.scss'
 export const Header = () => {
     const [isViewHeader, setIsViewHeader] = useState(true)
     const [isViewNavigationMenu, setIsViewNavigationMenu] = useState(false)
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const onChangeViewHeader = (inView: boolean): void => {
         setIsViewHeader(inView)
     }

@@ -1,23 +1,11 @@
 import { useState } from 'react'
-import { Link, useLocation, useNavigation } from 'react-router-dom'
 import clsx from 'clsx'
-import { Author } from 'entities/author'
-import { selectBookDescriptionBook } from 'entities/book/bookDescripton'
-import { AddToCart } from 'features/cart'
-import defaultImageBook from 'shared/assets/images/defaultImage.png'
-import { PRICE_OF_FREE_BOOK } from 'shared/consts'
-import { useAppSelector } from 'shared/lib/store'
 import { LoaderImage } from 'shared/ui/loaders/loaderImage'
-import { Price } from 'shared/ui/price'
-import { Rating } from 'shared/ui/rating'
 import { Title } from 'shared/ui/title'
 import { useParams } from 'react-router-dom'
-// import Image from '../collection/CRAN7456.jpg'
 import { Merch } from 'app/merch/merch'
 import { Players } from 'app/players/players'
-import { useDispatch, useSelector } from 'react-redux'
-import { setActiveGallery } from 'features/config/configSlice'
-import { Button } from 'shared/ui/button'
+import { useSelector } from 'react-redux'
 
 import './merchPlayerDetails.scss'
 
@@ -34,10 +22,6 @@ export const MerchPlayerDetails = () => {
     )
     console.log('Вон оно чо в сторе ' + activeGalleryId)
 
-    //вот тут ошибка! он выводит, но не диспатчит!
-
-    const dispatch = useDispatch()
-    // const location = useLocation()
     const [loadingImage, setLoadingImage] = useState(true)
 
     // const book = useAppSelector(selectBookDescriptionBook)
@@ -59,7 +43,7 @@ export const MerchPlayerDetails = () => {
     console.log(flag)
     // eslint-disable-next-line no-multi-assign
 
-    const { image, title, subtitle, id } = flag ? Merch[idd] : Players[idd]
+    const { image, title, subtitle } = flag ? Merch[idd] : Players[idd]
 
     // const { image, title, subtitle, id } = Players[idd]
 

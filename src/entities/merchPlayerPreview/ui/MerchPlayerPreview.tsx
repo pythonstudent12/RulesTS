@@ -6,8 +6,7 @@ import defaultImage from 'shared/assets/images/defaultImage.png'
 import { MAX_WIDTH__MD } from 'shared/consts'
 import { useMediaQuery } from 'shared/lib/media/useMediaQuery'
 import { LoaderImage } from 'shared/ui/loaders/loaderImage'
-import { useDispatch, useSelector } from 'react-redux'
-import { setActiveGallery } from 'features/config/configSlice'
+import { useSelector } from 'react-redux'
 
 import './MerchPlayer.scss'
 

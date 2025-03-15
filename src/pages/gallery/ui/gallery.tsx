@@ -1,23 +1,19 @@
 import { useEffect } from 'react'
 import { Responsive } from 'react-alice-carousel'
 import { useErrorBoundary } from 'react-error-boundary'
-import { BookPreview } from 'entities/book/bookPreview'
+
 import {
     fetchCategoryPreview,
-    selectCategoryPreviewBooks,
     selectCategoryPreviewError,
     selectCategoryPreviewLoading,
 } from 'entities/categoryPreview'
-import { AddToCart } from 'features/cart'
-import { IBookPreview } from 'shared/api/book'
 import { IMerchPlayerPreview } from 'shared/api/book/types'
-import { MAX_WIDTH_SM, SLIDES } from 'shared/consts'
+import { MAX_WIDTH_SM } from 'shared/consts'
 import { useMediaQuery } from 'shared/lib/media/useMediaQuery'
 import { useAppDispatch, useAppSelector } from 'shared/lib/store'
 import { Carousel } from 'shared/ui/carousel'
 import { LoaderCarousel } from 'shared/ui/loaders/loaderСarousel'
 import { ProductСategory } from 'widgets/productСategory'
-import { Slider } from 'widgets/slider'
 
 import Image1 from '../ui/collection/CRAN7429.jpg'
 import Image2 from '../ui/collection/CRAN7456.jpg'
@@ -29,11 +25,10 @@ import Image7 from '../ui/collection/CRAN7837.jpg'
 
 import './gallery.scss'
 import { MerchPlayerPreview } from 'entities/merchPlayerPreview'
-import { MerchPlayerDetails } from 'widgets/merchPlayerDetails'
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setActiveGallery } from 'features/config/configSlice'
-import { useParams, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 const responsive: Responsive = {
     1024: { items: 5 },
@@ -47,7 +42,7 @@ export const Gallery = () => {
     // TODO: Добавить получение категорий не через названия, а через массив с ссылками.
     const TITLE_OF_BOOK_CATEGOTIES = ['JavaScript']
 
-    const books = useAppSelector(selectCategoryPreviewBooks)
+    // const books = useAppSelector(selectCategoryPreviewBooks)
 
     const loading = useAppSelector(selectCategoryPreviewLoading)
     const error = useAppSelector(selectCategoryPreviewError)
