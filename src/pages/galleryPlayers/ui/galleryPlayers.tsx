@@ -39,7 +39,7 @@ export const GalleryPlayers = () => {
 
     // const books = useAppSelector(selectCategoryPreviewBooks)
 
-    // надо убрать все выводы в консоль тут и еще в компоненте gallery
+    // надо убрать все выводы в консоль тут и еще в компоненте werferfer4
 
     const loading = useAppSelector(selectCategoryPreviewLoading)
     const error = useAppSelector(selectCategoryPreviewError)
