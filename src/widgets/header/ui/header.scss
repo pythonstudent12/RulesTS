@@ -1,8 +1,16 @@
 @use 'src/app/styles/breakpoints';
 
+:root {
+    --red: #cb0e4e;
+    --dark-red: #a00c3d;
+    // --mobile-red: #ff6666;
+    // --mobile-dark-red: #ff4444;
+}
+
 .header {
     padding-top: 40px;
     padding-bottom: 40px;
+    margin-bottom: 18px;
 
     &__wrapper {
         display: grid;
@@ -99,7 +107,7 @@
     }
 
     &__navigation-menu-link {
-        color: var(--text-primary);
+        color: var(--primary-bg);
         font-size: 14px;
 
         padding-bottom: 10px;
@@ -132,10 +140,16 @@
     }
 
     &__menu-icon {
-        fill: var(--text-primary);
+        fill: var(--primary-bg);
         width: 30px;
         height: 30px;
     }
+}
+
+.no-scroll {
+    overflow: hidden !important;
+    -webkit-overflow-scrolling: auto !important;
+    touch-action: none;
 }
 
 @media (max-width: breakpoints.$lg) {
@@ -148,6 +162,7 @@
 
 @media (min-width: breakpoints.$md) and (max-width: breakpoints.$lg) {
     .header {
+        margin-bottom: 5px;
         &__navigation-menu-link {
             font-size: 12px;
         }
@@ -156,62 +171,178 @@
             gap: 30px;
         }
     }
+
+    .mobile-menu-portal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        pointer-events: none;
+    }
 }
 
 @media (max-width: breakpoints.$md) {
+    .no-scroll {
+        overflow: hidden !important;
+        -webkit-overflow-scrolling: auto !important;
+        touch-action: none;
+    }
+
     .header {
         padding-top: 15px;
 
         &__wrapper {
-            justify-items: start;
-            row-gap: 10px;
-            grid-template-columns: 20% 40% 40%;
-            grid-template-rows: repeat(2, 1fr);
-            grid-template-areas:
-                'title title buttons'
-                'menu search search';
-        }
-
-        &__btn-wrapper {
-            padding: 5px 10px 0;
-        }
-
-        &__search {
-            padding: 0;
-        }
-
-        &__navigation-menu {
-            position: relative;
-            z-index: 0;
-            background: transparent;
-
-            margin-top: 40px;
+            // Новая структура грида для мобильных
+            grid-template-columns: 1fr auto auto; // Изменяем пропорции колонок
+            grid-template-rows: auto auto; // Добавляем вторую строку
+            grid-template-areas: 'title buttons menu' // Первая строка
+                'search search search'; // Вторая строка
+            height: auto; // Сбрасываем фиксированную высоту
+            min-height: 60px; // Минимальная высота контейнера
+            align-items: start; // Выравнивание по верхнему краю
+            padding-top: 10px;
         }
 
         &__menu-open-btn {
-            display: block;
+            position: absolute;
+            //вот тут менять!
+            top: 15px; // Увеличиваем значение
+            right: 15px;
+            transform: translateY(10px); // Дополнительный сдвиг
+            grid-area: menu; // Явное назначение области
+            justify-self: end; // Выравнивание в правый край
+            align-self: center; // Центрирование по вертикали
+            margin: 0;
+            padding: 0;
+            // position: static !important; // Отключаем абсолютное позиционирование
+            // transform: none !important;
+
+            // Фиксируем размер иконки
+            width: 40px;
+            height: 40px;
+
+            // Центрируем иконку внутри кнопки
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &__title {
+            align-self: center; // Центрирование заголовка
+        }
+
+        &__btn-wrapper {
+            justify-self: end; // Кнопки в правый край
+            padding: 5px 10px 0 !important;
+        }
+
+        &__search {
+            grid-area: search;
+            align-self: start; // Поиск в начале второй строки
         }
 
         &__navigation-menu-wrapper {
-            height: 510px;
+            height: 630px;
             flex-direction: column;
-            margin-bottom: 20px;
-
+            // margin-bottom: 20px;
             transition: all 0.4s allow-discrete;
+            // touch-action: none;
+            display: none;
 
             &_hide {
                 height: 0;
                 opacity: 0;
+                display: none;
+                // touch-action: none; //тут блокируем спрятанное в мобильной версии меню!
             }
         }
 
         &__navigation-menu-list {
             flex-direction: column;
             gap: 25px;
+            touch-action: none;
         }
 
         &__navigation-menu-item {
             margin: 0;
+            touch-action: none;
+        }
+        &__navigation-menu-list {
+            touch-action: none;
+        }
+    }
+
+    .menu-portal-layer {
+        position: relative;
+        margin-top: 220px;
+        top: 0;
+        left: 0;
+        width: 80%;
+        height: 80%;
+        pointer-events: none;
+        z-index: 1000;
+    }
+
+    .menu-overlay {
+        margin-top: 90px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        // background: var(--red);
+        // color: var(--ligth);
+        pointer-events: none; //ноль реакции на клики
+        background: #18172b;
+        opacity: 0;
+        // display: flex;
+        // justify-content: center; /* Горизонтальное выравнивание */
+        // align-items: center; /* Вертикальное выравнивание */
+    }
+
+    .mobile-menu {
+        position: fixed;
+        top: 0;
+        right: 100%;
+        width: 100%;
+        max-width: 920px;
+        height: 100vh;
+        background: #18172b;
+        color: #fcfcfc;
+        box-shadow: -2px 0 15px rgba(0, 0, 0, 0.1);
+        transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        pointer-events: auto;
+        opacity: 0.95;
+        display: flex;
+        justify-content: center; /* Горизонтальное выравнивание */
+        align-items: center; /* Вертикальное выравнивание */
+
+        &.active {
+            right: 0px;
+            margin-top: 90px;
+            background: #18172b;
+            color: #fcfcfc;
+        }
+
+        .menu-content {
+            padding: 2rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-list {
+            flex-grow: 1;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu-footer {
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
         }
     }
 }

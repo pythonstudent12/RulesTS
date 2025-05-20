@@ -3,17 +3,21 @@
 .carousel {
     margin: 30px auto;
     position: relative;
+    padding: 0 60px; // Добавляем отступы для стрелок
 
     .btn-prev,
     .btn-next {
         position: absolute;
-        top: 30%;
-        font-size: 50px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 40px;
+        z-index: 1;
 
         color: var(--secondary-bg);
         background-color: transparent;
         border: none;
         cursor: pointer;
+        display: block; // Всегда показываем стрелки
 
         &:hover {
             color: var(--primary-bg);
@@ -31,6 +35,7 @@
     .btn-prev {
         left: -50px;
     }
+
     .btn-next {
         right: -50px;
     }
@@ -41,22 +46,43 @@
     }
 }
 
+// Адаптация для разных разрешений
 @media (max-width: breakpoints.$xxl) {
     .carousel {
+        padding: 0 40px;
+
         .btn-prev {
-            left: -20px;
+            left: -30px;
         }
         .btn-next {
-            right: -20px;
+            right: -30px;
         }
     }
 }
 
 @media (max-width: breakpoints.$xl) {
     .carousel {
+        padding: 0 20px;
+
         .btn-prev,
         .btn-next {
-            display: none;
+            font-size: 30px;
+        }
+    }
+}
+
+@media (max-width: breakpoints.$md) {
+    .carousel {
+        padding: 0 15px;
+        // margin-left: 120px;
+
+        .btn-prev {
+            left: -15px;
+            font-size: 40px;
+        }
+        .btn-next {
+            right: 25px;
+            font-size: 40px;
         }
     }
 }

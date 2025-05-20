@@ -17,6 +17,7 @@
     &__image {
         height: 400px;
         opacity: 1;
+        border-radius: 4px;
 
         &_hidden {
             opacity: 0;
@@ -160,7 +161,7 @@
         &__content {
             flex-wrap: wrap;
 
-            row-gap: 35px;
+            row-gap: 15px;
         }
 
         &__info {
@@ -185,7 +186,7 @@
             flex-wrap: wrap;
             justify-content: center;
 
-            row-gap: 20px;
+            row-gap: 10px;
         }
 
         &__info {

@@ -11,16 +11,16 @@ import './merchPlayerDetails.scss'
 
 export const MerchPlayerDetails = () => {
     const { Id } = useParams()
-    const obj = useParams()
-    console.log('Привет!')
-    console.log(obj)
+    // const obj = useParams()
+    // // console.log('Привет!')
+    // console.log(obj)
     const idd = Number(Id ?? 0) - 1
-    console.log(typeof idd + ' ' + idd)
+    // console.log(typeof idd + ' ' + idd)
 
-    let activeGalleryId = useSelector(
+    const activeGalleryId = useSelector(
         (state: RootState) => state.gallery.activeGalleryId
     )
-    console.log('Вон оно чо в сторе ' + activeGalleryId)
+    // console.log('Вон оно чо в сторе ' + activeGalleryId)
 
     const [loadingImage, setLoadingImage] = useState(true)
 
@@ -32,7 +32,7 @@ export const MerchPlayerDetails = () => {
         setLoadingImage(false)
     }
 
-    console.log(activeGalleryId)
+    // console.log(activeGalleryId)
 
     // тут надо переключать массивы, тогда будет выводить разные фотки!
     // массивы не переключаются!!!
@@ -40,49 +40,10 @@ export const MerchPlayerDetails = () => {
 
     // eslint-disable-next-line no-constant-condition, no-cond-assign
     if (activeGalleryId === 'Players') flag = false
-    console.log(flag)
+    // console.log(flag)
     // eslint-disable-next-line no-multi-assign
 
     const { image, title, subtitle } = flag ? Merch[idd] : Players[idd]
-
-    // const { image, title, subtitle, id } = Players[idd]
-
-    // const price = 5000
-
-    // const authorsArr = authors.split(', ')
-
-    // const linksToAuthors = authorsArr.map((item, index) => (
-    //     <Link
-    //         key={index}
-    //         className='book-details__author'
-    //         to={`/search/${item}`}>
-    //         {item}
-    //     </Link>
-    // ))
-
-    // const actionButtons = (
-    //     <div>
-    //         {price === PRICE_OF_FREE_BOOK ? (
-    //             <a
-    //                 href={url}
-    //                 target='__blank'
-    //                 className='book-details__link-action'>
-    //                 Read a book
-    //             </a>
-    //         ) : (
-    //             <AddToCart
-    //                 bookInfo={{
-    //                     isbn13,
-    //                     image,
-    //                     title,
-    //                     quantity: 1,
-    //                     price,
-    //                     url: location.pathname,
-    //                 }}
-    //             />
-    //         )}
-    //     </div>
-    // )
 
     return (
         <div className='book-details'>

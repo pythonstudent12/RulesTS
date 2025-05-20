@@ -8,57 +8,23 @@ import {
 import { Layout } from 'app/layout'
 import clsx from 'clsx'
 import { useTheme } from 'entities/theme'
-import { Gallery } from 'pages/gallery'
+// import { GalleryMerch } from 'pages/gallery'
 import { GalleryPlayers } from 'pages/galleryPlayers'
+import { GameMechanics } from 'pages/gameMechanics'
+// import { LootAndMobs } from 'shared/ui/lootAndMobs'
+import { LootAndMobs } from 'pages/lootAndMobs'
+// import { RulesText } from 'shared/ui/rulesText'
+// import { VideoPlayer } from 'widgets/videoPlayer'
+import { MainPage } from 'pages/mainPage'
 import { MerchPlayerDescription } from 'pages/merchPlayerDescription'
 import { Fallback } from 'shared/ui/fallback'
-import { RulesText } from 'shared/ui/rulesText'
+
+import { GalleryMerch } from '../../pages/galleryMerch/ui/galleryMerch'
+
 import '../styles/index.scss'
-
-// const getCategoryNameByLink = (link?: string): string | undefined => {
-//     for (const values of Object.values(CATEGORIES)) {
-//         const findEl = values.find((item) => item.link === link)
-
-//         if (findEl) {
-//             return findEl.title
-//         }
-//     }
-//     return undefined
-// }
-
-/** Dynamic path parameter types for breadcrumbs. */
-// interface IParamsDynamicPath {
-//     /** Page path name. */
-//     pathname: string
-//     /** Page parameters. */
-//     params?: { categoryId: string; bookId: string }
-//     /** Additional data for the name of bread crumbs. */
-//     data?: string
-// }
-
-// тут надо сделать ссылку на страницу правил, а ссылку на галереи с правилами закомментить!
 
 export const AppRouter = () => {
     const { theme } = useTheme()
-
-    // const book = useAppSelector(selectBookDescriptionBook)
-
-    // const getDynamicPathForCategory = ({
-    //     pathname,
-    //     params,
-    // }: IParamsDynamicPath): JSX.Element => {
-    //     return (
-    //         <Link to={pathname}>
-    //             {getCategoryNameByLink(params?.categoryId) ??
-    //                 params?.categoryId}
-    //         </Link>
-    //     )
-    // }
-
-    // const getDynamicPathForBook = ({
-    //     pathname,
-    //     data,
-    // }: IParamsDynamicPath): JSX.Element => <Link to={pathname}>{data}</Link>
 
     const routers = createRoutesFromElements(
         <Route
@@ -66,55 +32,48 @@ export const AppRouter = () => {
             element={<Layout />}
             handle={{ crumb: <Link to='/'>Home</Link> }}
             errorElement={<Fallback />}>
-            <Route index element={<RulesText />} />
+            <Route index element={<MainPage />} />
             <Route
                 path='books'
                 handle={{
                     crumb: <Link to='/books'>Books</Link>,
                 }}>
-                <Route index element={<Gallery />} />
+                <Route index element={<GalleryMerch />} />
+
                 <Route
                     path='rules'
-                    element={<RulesText />}
+                    element={<LootAndMobs />}
                     handle={{
-                        crumb: <Link to='/rules'>Rules</Link>,
-                    }}
-                />
-                <Route
-                    path='rules'
-                    element={<RulesText />}
-                    handle={{
-                        crumb: <Link to='/rules'>Rules</Link>,
+                        crumb: <Link to='/rules'>Loot and Mobs</Link>,
                     }}
                 />
             </Route>
 
             <Route
-                path='rules'
-                element={<RulesText />}
+                path='game'
+                element={<GameMechanics />}
                 handle={{
-                    crumb: <Link to='/rules'>Rules</Link>,
+                    crumb: <Link to='/game'>Game</Link>,
                 }}
             />
-            {/* <Route
-                path='gallery'
-                element={<Gallery />}
-                handle={{
-                    crumb: <Link to='/cart'>Cart</Link>,
-                }}
-            /> */}
-            {/* <Route path='/search/:searchLine' element={<SearchResults />} /> */}
 
             <Route
-                path='gallery'
+                path='rules'
+                element={<LootAndMobs />}
                 handle={{
-                    crumb: <Link to='/gallery'>Gallery</Link>,
+                    crumb: <Link to='/rules'>Loot and Mobs</Link>,
+                }}
+            />
+
+            <Route
+                path='merch'
+                handle={{
+                    crumb: <Link to='/merch'>Merch</Link>,
                 }}>
-                <Route index element={<Gallery />} />
-                {/* //почему нет перехода по ссылке???? */}
-                {/* разобраться с адресной строкой! */}
+                <Route index element={<GalleryMerch />} />
+
                 <Route
-                    path='merch/description/:Id'
+                    path='description/:Id'
                     element={<MerchPlayerDescription />}
                     // // loader={() => book.title}
                     // handle={{
@@ -128,10 +87,8 @@ export const AppRouter = () => {
                     crumb: <Link to='/players'>Players</Link>,
                 }}>
                 <Route index element={<GalleryPlayers />} />
-                {/* //почему нет перехода по ссылке???? */}
-                {/* разобраться с адресной строкой! */}
                 <Route
-                    path='players/description/:Id'
+                    path='description/:Id'
                     element={<MerchPlayerDescription />}
                     // // loader={() => book.title}
                     // handle={{

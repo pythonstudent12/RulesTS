@@ -34,17 +34,19 @@
     &__icon {
         top: 50%;
         transform: translate(0, -50%);
-        display: block;
+        display: none;
         margin-left: auto;
         margin-right: auto;
     }
 
     &__toggle-theme.light {
         background-color: var(--primary-bg);
+        display: none;
     }
 
     &__toggle-theme.dark {
         background-color: var(--black);
+        display: none;
     }
 
     /** Navigation menu. */

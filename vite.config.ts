@@ -9,7 +9,7 @@ export default defineConfig({
             include: '**/*.svg?react',
         }),
     ],
-    base: '/RulesTS/',
+    base: '/RulesTS',
     resolve: {
         alias: {
             app: '/src/app',

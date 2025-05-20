@@ -1,0 +1,22 @@
+@use 'src/app/styles/breakpoints';
+
+.mechanic-details {
+    display: flex;
+    flex-direction: column; // Вертикальное расположение видео
+    // gap: 20px; // Отступ между видео
+}
+
+@media (max-width: breakpoints.$lg) {
+    .mechanic-details {
+        flex-direction: row; // Горизонтальное расположение для LG
+        flex-wrap: wrap; // Перенос на новую строку
+        gap: 0px;
+    }
+}
+
+@media (max-width: breakpoints.$md) {
+    .mechanic-details {
+        flex-direction: column;
+        gap: 0px;
+    }
+}

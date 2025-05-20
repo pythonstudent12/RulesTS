@@ -16,14 +16,15 @@ import { LoaderCarousel } from 'shared/ui/loaders/loaderСarousel'
 import { ProductСategory } from 'widgets/productСategory'
 import { useDispatch } from 'react-redux'
 import { setActiveGallery } from 'features/config/configSlice'
+import { Breadcrumbs } from 'shared/ui/breadcrumbs'
 
 import { useLocation } from 'react-router-dom'
 
 import './galleryPlayers.scss'
 
 const responsive: Responsive = {
-    1024: { items: 5 },
-    768: { items: 4 },
+    1024: { items: 4 },
+    768: { items: 2 },
     576: { items: 1 },
 }
 
@@ -40,6 +41,7 @@ export const GalleryPlayers = () => {
     // const books = useAppSelector(selectCategoryPreviewBooks)
 
     // надо убрать все выводы в консоль тут и еще в компоненте werferfer4
+    // тут надо посмотреть на что в сторе влияют эти переменные
 
     const loading = useAppSelector(selectCategoryPreviewLoading)
     const error = useAppSelector(selectCategoryPreviewError)
@@ -61,6 +63,9 @@ export const GalleryPlayers = () => {
     // }, [])
 
     const dispatch1 = useDispatch()
+
+    // тут надо блокирующий рендеринг, применить useLayoutEffect
+    // сделать barrel-файл!
 
     useEffect(() => {
         dispatch1(setActiveGallery('Players'))
@@ -139,10 +144,12 @@ export const GalleryPlayers = () => {
                 title={titleCategory}
                 className='home-page__category'>
                 <Carousel
-                    autoWidth
+                    autoWidth={false}
                     disableDotsControls
                     responsive={responsive}
-                    countVisibleElements={5}
+                    countVisibleElements={4}
+                    // paddingLeft={5} // Добавляем отступы
+                    // paddingRight={5}
                     className='home-page__carousel'>
                     {renderMerchPlayer(Players)}
                 </Carousel>
@@ -169,11 +176,9 @@ export const GalleryPlayers = () => {
         )
 
     return (
-        <>
-            {/* <Slider slides={SLIDES} /> */}
+        <div className='book-description _container'>
+            <Breadcrumbs />
             {renderCategories()}
-            {/* <MerchPlayerDetails /> */}
-            {/* {renderMerchPlayerCategories} */}
-        </>
+        </div>
     )
 }

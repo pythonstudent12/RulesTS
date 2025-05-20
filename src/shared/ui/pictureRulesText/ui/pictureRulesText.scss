@@ -1,0 +1,134 @@
+@use 'src/app/styles/breakpoints';
+
+.game-details {
+    color: var(--text-primary);
+    margin-bottom: 0px;
+    width: 100%;
+    padding: 0px;
+
+    &__desc {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+.picture-video-wrapper {
+    position: relative;
+    max-width: 750px;
+    margin: 2px auto 0;
+    padding-bottom: 56.25%; // Для соотношения 16:9 (но aspect-ratio 9/16 конфликтует)
+    height: 0;
+    aspect-ratio: 9/16; // Лучше использовать 16/9 или удалить при наличии padding-bottom
+
+    // Исправленный вариант:
+    // aspect-ratio: 16/9; // Соответствует padding-bottom: 56.25%
+    // height: auto; // Убрать height: 0 если используем aspect-ratio
+}
+
+.picture-wrapper img {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    margin-bottom: 35px;
+    width: 100%;
+    padding-top: 5px;
+}
+
+.picture-video-wrapper video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); // Центрируем видео аналогично
+    width: 92%;
+    height: 92%;
+    object-fit: cover; // Для видео можно оставить cover
+}
+
+@media (max-width: breakpoints.$lg) {
+    .game-details {
+        flex-direction: row; // Горизонтальное расположение для LG
+        flex-wrap: wrap; // Перенос на новую строку
+        // justify-content: center; // Центрирование
+        gap: 5px;
+    }
+
+    .picture-video-wrapper {
+        max-width: 200px;
+        margin: 2px auto 0;
+        flex: 0 1 calc(50% - 15px); // 2 видео в ряд
+        justify-content: center;
+        align-items: center;
+
+        video {
+            position: relative;
+            height: auto;
+            justify-content: center;
+            display: block; /* Для margin: auto */
+            margin: 0 auto;
+        }
+    }
+}
+
+@media (max-width: breakpoints.$md) {
+    .game-details {
+        flex-direction: column;
+        // gap: 0px;
+        &__desc {
+            margin-top: 10px;
+            margin-bottom: 0px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+    }
+
+    .picture-video-wrapper {
+        width: 800px; // Занимаем всю ширину
+        max-width: 100%;
+        height: auto; // Автоматическая высота
+        // min-height: 200px; // Опционально: минимальная высота для области
+        padding: 5px 0; // Отступы сверху и снизу
+        margin: 2px auto 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden; // Обрезаем выходящие за границы части
+
+        video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); // Центрируем видео аналогично
+            width: 92%;
+            height: 92%;
+            object-fit: cover; // Для видео можно оставить cover
+        }
+        &::before {
+            display: none;
+        }
+    }
+    .picture-wrapper {
+        // Убираем все фиксированные размеры и паддинги
+        position: relative;
+        max-width: 750px; // Максимальная ширина, но можно менять
+        margin: 0 auto;
+        display: inline-block; // Контейнер подстраивается под содержимое
+        height: auto !important;
+        padding-top: 5px;
+        aspect-ratio: unset !important;
+
+        img {
+            position: static; // Убираем абсолютное позиционирование
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 80vh; // Защита от слишком больших изображений
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            transform: none;
+            object-fit: contain;
+        }
+    }
+}

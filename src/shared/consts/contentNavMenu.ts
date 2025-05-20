@@ -1,10 +1,11 @@
 import { IContantNavType } from 'shared/types/contentNavTypes'
 
 export const CONTENT_NAVIGATION_MENU: IContantNavType[] = [
-    { title: 'Об игре', link: '' },
-    { title: 'Правила', link: '/rules' },
+    { title: 'Главная', link: '' },
+    { title: 'Игровые механики', link: '/game' },
     { title: 'Галерея игроков', link: '/players' },
-    { title: 'Наш мерч', link: '/gallery' },
+    { title: 'Наш мерч', link: '/merch' },
+    { title: 'База данных игры', link: '/rules' },
     { title: 'Чат игроков', link: 'https://t.me/ZombieTap' },
     // { title: 'Telega', link: 'https://t.me/ZombieTap' },
     // { title: 'Design', link: '/books/Design' },

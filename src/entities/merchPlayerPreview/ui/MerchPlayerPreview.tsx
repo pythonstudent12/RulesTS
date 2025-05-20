@@ -1,27 +1,20 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import clsx from 'clsx'
 import { IMerchPlayerPreview } from 'shared/api/book/types'
 import defaultImage from 'shared/assets/images/defaultImage.png'
-import { MAX_WIDTH__MD } from 'shared/consts'
-import { useMediaQuery } from 'shared/lib/media/useMediaQuery'
-import { LoaderImage } from 'shared/ui/loaders/loaderImage'
+// import { MAX_WIDTH__MD } from 'shared/consts'
+// import { useMediaQuery } from 'shared/lib/media/useMediaQuery'
+// import { LoaderImage } from 'shared/ui/loaders/loaderImage'
 import { useSelector } from 'react-redux'
+import { Box } from '@mui/material'
 
-import './MerchPlayer.scss'
-
-// interface IBookPreviewProps extends IBookPreview {
-//     /** Slot for adding an action button. */
-//     readonly actionSlot: JSX.Element
-// }
+import './MerchPlayerPreview.scss'
 
 export const MerchPlayerPreview: FC<IMerchPlayerPreview> = (props) => {
     const { image = defaultImage, title, subtitle, id, className } = props
 
-    const [loadingImage, setLoadingImage] = useState(true)
-    const matches = useMediaQuery(MAX_WIDTH__MD)
-
-    let activeGalleryId = useSelector(
+    const activeGalleryId = useSelector(
         (state: RootState) => state.gallery.activeGalleryId
     )
     //   тут тоже не реагирует на условие
@@ -36,18 +29,11 @@ export const MerchPlayerPreview: FC<IMerchPlayerPreview> = (props) => {
 
     // // вот тут проблема со ссылками!
     if (activeGalleryId === 'Players') flag = false
-    console.log(flag)
+    // console.log(flag)
     const LinkToBookDescription = flag
-        ? `/gallery/merch/description/${id}`
-        : `/players/players/description/${id}`
-    console.log(LinkToBookDescription)
-
-    const ImageLoaderWidth = matches ? 160 : 250
-    const ImageLoaderHeight = matches ? 210 : 290
-
-    const onLoadedImage = (): void => {
-        setLoadingImage(false)
-    }
+        ? `/merch/description/${id}`
+        : `/players/description/${id}`
+    // console.log(LinkToBookDescription)
 
     const renderOverlay = (): JSX.Element => (
         <div className='book-preview__overlay'>
@@ -70,23 +56,58 @@ export const MerchPlayerPreview: FC<IMerchPlayerPreview> = (props) => {
             </div>
 
             <Link to={LinkToBookDescription}>
-                {loadingImage && (
+                {/* {loadingImage && (
                     <LoaderImage
                         width={ImageLoaderWidth}
                         height={ImageLoaderHeight}
                         className='book-preview__image-loader'
                     />
-                )}
-                <img
-                    src={image}
-                    loading='lazy'
-                    className={clsx(
-                        'book-preview__image',
-                        loadingImage && 'book-preview__image_hidden'
-                    )}
-                    alt='Book cover.'
-                    onLoad={onLoadedImage}
-                />
+                )} */}
+                <Box
+                    sx={{
+                        width: { xs: '100%', sm: '100%', md: '100%' },
+                        maxWidth: { xs: '100%', sm: 800, md: 800 }, // Адаптивный максимум
+                        height: 'auto',
+                        mx: 'auto',
+                        position: 'relative',
+                        // p: { xs: 1, sm: 1 }, // Адаптивные отступы
+                        // // Фон для области за изображением
+                        // bgcolor: 'background.paper',
+                        borderRadius: { xs: 1, sm: 1 }, // На мобильных без скругления
+                        overflow: 'hidden',
+                        boxShadow: { xs: 3, sm: 3 }, // Тень только на десктопе
+                    }}>
+                    <Box
+                        component='img'
+                        src={image}
+                        loading='lazy' // Ленивая загрузка
+                        sx={{
+                            width: '100%',
+                            height: 'auto',
+                            maxHeight: {
+                                xs: '50vh', // Меньшая высота на мобильных
+                                sm: '70vh',
+                            },
+                            display: 'block',
+                            objectFit: {
+                                xs: 'cover', // Обрезка на мобильных
+                                sm: 'contain', // Полное отображение на десктопе
+                            },
+                            objectPosition: {
+                                xs: 'center center', // Центрирование для обрезанных мобильных
+                                sm: 'center top', // Позиция для десктопа
+                            },
+                            // Анимация при наведении (только на десктопе)
+                            transition: 'transform 0.3s ease',
+                            '&:hover': {
+                                transform: {
+                                    xs: 'none', // На мобильных отключаем
+                                    sm: 'scale(1.02)',
+                                },
+                            },
+                        }}
+                    />
+                </Box>
             </Link>
 
             <h4 className='book-preview__title'>{title}</h4>

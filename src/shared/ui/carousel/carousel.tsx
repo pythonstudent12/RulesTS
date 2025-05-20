@@ -15,7 +15,11 @@ interface ICarousel {
     readonly disableDotsControls?: boolean
     /** Additional styles. */
     readonly className?: string
+    readonly paddingLeft?: number
+    readonly paddingRight?: number
 }
+
+// разобраться с боковыми стрелками, когда в карусели еще есть фотки, стрелка справа погасает все равно!
 
 export const Carousel: FC<ICarousel> = (props) => {
     const {
@@ -25,6 +29,8 @@ export const Carousel: FC<ICarousel> = (props) => {
         responsive,
         disableDotsControls,
         className,
+        paddingLeft = 0,
+        paddingRight = 0,
     } = props
 
     const [activeIndex, setActiveIndex] = useState<number>(0)
@@ -61,6 +67,8 @@ export const Carousel: FC<ICarousel> = (props) => {
                 items={children}
                 disableButtonsControls
                 disableDotsControls={disableDotsControls}
+                paddingLeft={paddingLeft}
+                paddingRight={paddingRight}
             />
             <button
                 type='button'

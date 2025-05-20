@@ -1,0 +1,75 @@
+@use 'src/app/styles/breakpoints';
+
+.video-module {
+    color: var(--text-primary);
+    margin-bottom: 0px;
+    width: 100%;
+    padding: 0px;
+
+    &__desc {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+.video-module-wrapper {
+    position: relative;
+    width: 70%;
+    height: 200px;
+    max-width: 800px; // Можно регулировать максимальную ширину
+    margin: 2px auto 0;
+    padding-bottom: 56.25%; // Соотношение 16:9
+    overflow: hidden;
+
+    video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); // Центрируем видео аналогично
+        width: 92%;
+        height: 92%;
+        object-fit: cover; // или contain, в зависимости от предпочтений
+    }
+}
+
+// Мобильная версия (горизонтальное видео)
+@media (max-width: breakpoints.$md) {
+    .video-module {
+        // flex-direction: column;
+        // gap: 0px;
+        &__desc {
+            margin-top: 10px;
+            margin-bottom: 0px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+    }
+    .video-module-wrapper {
+        width: 800px; // Занимаем всю ширину
+        max-width: 100%;
+        // height: 450px; // Автоматическая высота
+        // min-height: 200px; // Опционально: минимальная высота для области
+        padding: 5px 0; // Отступы сверху и снизу
+        margin: 2px auto 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden; // Обрезаем выходящие за границы части
+        padding-bottom: 56.25%;
+
+        video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); // Центрируем видео аналогично
+            width: 92%;
+            height: 92%;
+            object-fit: cover;
+        }
+        &::before {
+            display: none;
+        }
+    }
+}

@@ -5,12 +5,14 @@
     width: 100%;
     min-height: 250px;
     background: var(--pink);
-
+    text-align: center;
     padding: 40px;
 
     &__wrapper {
         display: flex;
         justify-content: space-between;
+        justify-content: center;
+        padding: 2rem 0;
     }
 
     &__header {
@@ -34,13 +36,33 @@
             color: var(--primary-bg);
         }
     }
+    &__copyright {
+        color: var(--text-footer);
+    }
 }
 
 @media (max-width: breakpoints.$sm) {
     .footer {
         &__wrapper {
-            flex-wrap: wrap;
-            gap: 25px;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 1.5rem 0;
+            align-items: center;
+        }
+
+        &_col {
+            align-items: center;
+        }
+
+        &__list {
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+
+            // li {
+            //     flex-direction: column;
+            //     text-align: center;
+            // }
         }
     }
 }
